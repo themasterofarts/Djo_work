@@ -1,0 +1,89 @@
+from launch import LaunchDescription
+from launch_ros.actions import Node
+from ament_index_python.packages import get_package_share_directory
+import os, xacro
+
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import PathJoinSubstitution, TextSubstitution
+
+def generate_launch_description():
+    
+    pkg_path = get_package_share_directory('my_pkg')
+    xacro_file = os.path.join(pkg_path, 'description', 'robot.urdf.xacro')
+    robot_desc = xacro.process_file(xacro_file).toxml()
+    
+    pkg_gazebo= get_package_share_directory('ros_gz_sim')
+    
+    #### Lancement de  ignition ######
+    # ignition_gz= IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource(os.path.join(pkg_gazebo,'launch','gz_sim.launch.py')),
+    #     launch_arguments={'worlds': PathJoinSubstitution([
+    #         pkg_gazebo,
+    #         'world',
+    #         'empty_ign.sdf']),
+                          
+    #         'extra_args': TextSubstitution(text=' -r -v -v1 --render-engine ogre')
+    #     }.items(),
+    #)
+    
+    
+
+    return LaunchDescription([
+        Node(
+            package='robot_state_publisher',
+            executable='robot_state_publisher',
+            name='robot_state_publisher',
+            output='screen',
+            parameters=[{'robot_description': robot_desc}]
+        ),
+        Node(
+            package='joint_state_publisher',
+            executable='joint_state_publisher',
+            name='joint_state_publisher_gui'
+        ),
+        Node(
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            output='screen'
+        ),
+        
+        # Node(
+        #         package="ros_gz_bridge",
+        #         executable="parameter_bridge",
+        #         parameters=[
+        #             {
+        #                 "config_file": os.path.join(pkg_path, "config", "bridge.yaml"),
+        #                 "qos_overrides./tf_static.publisher.durability": "transient_local",
+        #             }
+        #         ],
+        #         output="screen",
+        #     ),
+        
+        ##  Faire apparaitre mon robot dans gazebo   ######
+        Node(
+                package="ros_gz_sim",
+                executable="create",
+                output="screen",
+                arguments=[
+                    "-topic",
+                    "/robot_description",
+                    "-name",
+                    "bot",
+                    "-allow_renaming",
+                    "true",  # permet de faire le robot dans gz sim
+                    "-x",
+                    "0.0",
+                    "-y",
+                    "0.0",
+                    "-z",
+                    "0.1",
+                    "-R",
+                    "0.0",
+                    "-P",
+                    "0.0",
+                ],
+            ),
+        #ignition_gz
+    ])
