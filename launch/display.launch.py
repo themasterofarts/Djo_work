@@ -16,16 +16,25 @@ def generate_launch_description():
     pkg_gazebo= get_package_share_directory('ros_gz_sim')
     
     #### Lancement de  ignition ######
-    # ignition_gz= IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource(os.path.join(pkg_gazebo,'launch','gz_sim.launch.py')),
-    #     launch_arguments={'worlds': PathJoinSubstitution([
-    #         pkg_gazebo,
-    #         'world',
-    #         'empty_ign.sdf']),
+    ignition_gz= IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(os.path.join(pkg_gazebo,'launch','gz_sim.launch.py')),
+        launch_arguments={'worlds': PathJoinSubstitution([
+            pkg_gazebo,
+            'world',
+            'empty_ign.sdf']),
                           
-    #         'extra_args': TextSubstitution(text=' -r -v -v1 --render-engine ogre')
-    #     }.items(),
-    #)
+            'extra_args': TextSubstitution(text=' -r -v -v1 --render-engine ogre')
+        }.items(),
+    )
+
+    gz_sim = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_gazebo, "launch", "gz_sim.launch.py")
+        ),
+        launch_arguments={
+            "gz_args": PathJoinSubstitution([pkg_path, "worlds", "empty_gz.world"])
+        }.items(),
+    )
     
     
 
@@ -85,5 +94,6 @@ def generate_launch_description():
                     "0.0",
                 ],
             ),
-        #ignition_gz
+        #ignition_gz,
+        gz_sim,
     ])
