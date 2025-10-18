@@ -1,57 +1,45 @@
-## Brigde configuration file
  
 # Bridge configuration file
 - ros_topic_name: "clock"
   gz_topic_name: "/clock"
   ros_type_name: "rosgraph_msgs/msg/Clock"
-  gz_type_name: "ignition.msgs.Clock"
+  gz_type_name: "gz.msgs.Clock"
   direction: GZ_TO_ROS  # BIDIRECTIONAL or ROS_TO_GZ
-
 
 ######## lidar #######
 - ros_topic_name: "scan"
   gz_topic_name: "scan"
   ros_type_name: "sensor_msgs/msg/LaserScan"
-  gz_topic_name: "ignition.msgs.LaserScan"
+  gz_topic_name: "gz.msgs.LaserScan"
   direction : GZ_TO_ROS  # BIDIRECTIONEL OR ROS_TO_GZ
-
 
 
 #### cmd_vel
 - ros_topic_name: "cmd_vel"
   gz_topic_name: "/cmd_vel"
   ros_type_name: "geometry_msgs/msg/Twist"
-  gz_type_name: "ignition.msgs.Twist"
+  gz_type_name: "gz.msgs.Twist"
   direction: BIDIRECTIONAL # BIDIRECTIONEL OR ROS_TO_GZ
 
-
-# gz topic published by JointState plugin
-- ros_topic_name: "joint_states"
-  gz_topic_name: "joint_states"
-  ros_type_name: "sensor_msgs/msg/JointState"
-  gz_type_name: "ignition.msgs.Model"
-  direction: GZ_TO_ROS
 
 - ros_topic_name: "/camera/image_raw"
   gz_topic_name: "/camera/image"
   ros_type_name: "sensor_msgs/msg/Image"
-  gz_type_name: "ignition.msgs.Image"
+  gz_type_name: "gz.msgs.Image"
   direction: GZ_TO_ROS   # ROS_TO_ING or GZ_TO_ROS
-
-
 
 # gz topic published by DiffDrive plugin
 - ros_topic_name: "tf"
   gz_topic_name: "tf"
   ros_type_name: "tf2_msgs/msg/TFMessage"
-  gz_type_name: "ignition.msgs.Pose_V"
+  gz_type_name: "gz.msgs.Pose_V"
   direction: GZ_TO_ROS
 
 # gz topic published by JointState plugin
 - ros_topic_name: "joint_states"
   ign_topic_name: "joint_states"
   ros_type_name: "sensor_msgs/msg/JointState"
-  gz_type_name: "ignition.msgs.Model"
+  gz_type_name: "gz.msgs.Model"
   direction: GZ_TO_ROS
 
 

@@ -9,7 +9,9 @@
      <!--Control robot-->
 
      <xacro:include filename = "controle_gazebo.xacro"/>
+<!-- camera -->
+     <xacro:include filename='camera.xacro' />
 
-     <!-- <xacro:include filename='camera.xacro' /> -->
+     <xacro:include filename='imu.xacro'/>
 
 </robot>
