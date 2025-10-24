@@ -9,9 +9,13 @@
      <!--Control robot-->
 
      <xacro:include filename = "controle_gazebo.xacro"/>
-<!-- camera -->
+          <!-- camera -->
      <xacro:include filename='camera.xacro' />
-
+           <!-- Imu -->
      <xacro:include filename='imu.xacro'/>
+
+     <!-- Navsat -->
+     <xacro:include filename="gps.xacro"/>
+
 
 </robot>

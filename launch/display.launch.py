@@ -79,49 +79,49 @@ def generate_launch_description():
         ),
 
 
-        Node(
-        package="ros_gz_image",
-        executable="image_bridge",
-        arguments=[
-            "/camera/image",
-        ],
-        output="screen",
-        parameters=[
-            {'use_sim_time': True,
-             'camera.image.compressed.jpeg_quality': 75},
-        ],
-        ),
+        # Node(
+        # package="ros_gz_image",
+        # executable="image_bridge",
+        # arguments=[
+        #     "/camera/image",
+        # ],
+        # output="screen",
+        # parameters=[
+        #     {'use_sim_time': True,
+        #      'camera.image.compressed.jpeg_quality': 75},
+        # ],
+        # ),
         
          
-        # Node(
-        #     package='ros_gz_bridge',
-        #     executable='parameter_bridge',
-        #     parameters=[{
-        #         'config_file': os.path.join(pkg_path, 'configuration', 'bridge.yaml'),
-        #         'qos_overrides./tf_static.publisher.durability': 'transient_local',
-        #     }],
-        #     output='screen'
-        # ),
+        Node(
+            package='ros_gz_bridge',
+            executable='parameter_bridge',
+            parameters=[{
+                'config_file': os.path.join(pkg_path, 'configuration', 'brigde.yaml'),
+                'qos_overrides./tf_static.publisher.durability': 'transient_local',
+            }],
+            output='screen'
+        ),
 
        ### noeud du pont entre gazebo et ros pour la communication #####
-        Node(
-        package="ros_gz_bridge",
-        executable="parameter_bridge",
-        arguments=[
-            "/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock",
-            "/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist",
-            "/odom@nav_msgs/msg/Odometry@gz.msgs.Odometry",
-            "/joint_states@sensor_msgs/msg/JointState@gz.msgs.Model",
-            '/lidar/scan@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan'
-            "/tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V",
-            #"/camera/image@sensor_msgs/msg/Image@gz.msgs.Image",
-            "/camera/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo",
-            "imu@sensor_msgs/msg/Imu@gz.msgs.IMU",
+        # Node(
+        # package="ros_gz_bridge",
+        # executable="parameter_bridge",
+        # arguments=[
+        #     "/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock",
+        #     "/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist",
+        #     "/odom@nav_msgs/msg/Odometry@gz.msgs.Odometry",
+        #     "/joint_states@sensor_msgs/msg/JointState@gz.msgs.Model",
+        #     '/scan@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan'
+        #     "/tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V",
+        #     #"/camera/image@sensor_msgs/msg/Image@gz.msgs.Image",
+        #     "/camera/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo",
+        #     "imu@sensor_msgs/msg/Imu@gz.msgs.IMU",
 
-        ],
-        output="screen",
-        parameters=[{'use_sim_time': True    }    ]
-        ),
+        # ],
+        # output="screen",
+        # parameters=[{'use_sim_time': True    }    ]
+        # ),
         
         ##  Faire apparaitre mon robot dans gazebo   ######
         Node(
