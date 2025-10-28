@@ -45,15 +45,27 @@ def generate_launch_description():
     # )
     
 
-    gz_sim = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(pkg_gazebo, "launch", "gz_sim.launch.py")
-        ),
-        launch_arguments={
-            "gz_args":[ PathJoinSubstitution([pkg_path, "worlds", "djo_world.sdf"]),
-             TextSubstitution(text=' -r -v -v1 --render-engine ogre')],
+    # gz_sim = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource(
+    #         os.path.join(pkg_gazebo, "launch", "gz_sim.launch.py")
+    #     ),
+    #     launch_arguments={
+    #         "gz_args":[ PathJoinSubstitution([pkg_path, "worlds", "djo_world.sdf"]),
+    #          TextSubstitution(text=' -r -v -v1 --render-engine ogre')],
 
-        }.items(),
+    #     }.items(),
+    # )
+
+    gz_sim = IncludeLaunchDescription(
+    PythonLaunchDescriptionSource(
+        os.path.join(pkg_gazebo, "launch", "gz_sim.launch.py")
+    ),
+    launch_arguments={
+        "gz_args": TextSubstitution(
+            text=os.path.join(pkg_path, "worlds", "djo_world.sdf") +
+                 " -r -v 1 --render-engine ogre"
+        ),
+    }.items(),
     )
     
     
